@@ -7,11 +7,15 @@ use Slim\Http\Response;
 class Factory
 {
     /**
-     * @param \Slim\App $app
+     * @param null|\Slim\App $app
      * @return \Slim\App
      */
-    public static function getApp(\Slim\App $app)
+    public static function getApp(\Slim\App $app = null)
     {
+        if (null === $app) {
+            $app = new \Slim\App();
+        }
+
         $app->get('/hello/{name}', function (Request $request, Response $response) {
             $name = $request->getAttribute('name');
             $response->getBody()->write("Hello, $name, I am main App.");
